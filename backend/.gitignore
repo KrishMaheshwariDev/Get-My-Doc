@@ -1,0 +1,32 @@
+# Python
+
+.venv/
+__pycache__/
+*.pyc
+
+# Environment
+
+.env
+
+# SQLite
+
+*.db
+*.sqlite3
+
+# Logs
+
+logs/*
+
+# Uploads
+
+uploads/*
+
+# Cache
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# VS Code
+
+.vscode/
