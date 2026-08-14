@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const QUERY_ENDPOINT = import.meta.env.VITE_QUERY_ENDPOINT ?? '/api/query'
+const QUERY_ENDPOINT = import.meta.env.VITE_QUERY_ENDPOINT ?? 'http://localhost:8000/api/query/text'
 const SOURCE_ENDPOINT = import.meta.env.VITE_SOURCE_ENDPOINT ?? '/api/sources'
 
 function MicIcon() {
@@ -35,6 +35,7 @@ function App() {
       if (!response.ok) throw new Error('Request was not accepted')
       setResult(await response.json())
       setStatus('Results received.')
+      console.log(result["received"])
     } catch {
       setStatus('The retrieval service is not connected yet.')
     }
