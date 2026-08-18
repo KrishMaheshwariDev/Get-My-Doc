@@ -13,7 +13,6 @@ class ScanManager:
 
     def __init__(self, source: str):
         self.Source = source
-        self.files = []
         if(self.Source.strip() == ""):
            ErrorLogger().error("ScanManager::__init__() : file/folder source is empty string")
            return 
@@ -23,31 +22,34 @@ class ScanManager:
             ErrorLogger().error("ScanManager::__init__() : file/folder does not exists")
             return 
 
-        if path.is_dir():
-            Logger().info("ScanManager::__init__() : ${source} is a directory")
-            self.files = [file for file in path.rglob("*") if file.is_file() and file.suffix.lower() in accepted_extensions]
-        elif path.is_file():
-            Logger().info("ScanManager::__init__() : ${source} is a file")
-            if path.suffix.lower() in accepted_extensions:
-                self.files = [path]
-            else:
-                Logger().warning("ScanManager::__init__() : ${source} is not accepted")    
-                return 
-        else:
-            ErrorLogger().error("ScanManager::__init__() : ${source} is neither a file nor a directory")
-            return
+        self.files = self.discover_files(path)
+        if self.files == []:
+            Logger().warning("ScanManager::__init__() : files array is empty, either path is not valid or no accepted_extension file found")
 
         
     def scan(self) -> list:
-        success_list = []
+        result_list = []
         if self.files.__len__() == 0:
             Logger().warning("ScanManager::scan() : Nothing to scan, files list is empty")
             return [False]
 
-        for file in self.files:
-            
-
-        # call File Scanner for every item in the files array,
+        # call File Scanner for one time and give the whole array,
         # if single then loop runs for 1 time, if multiple then file runs multiple time
-        return success_list
+        return result_list
 
+    def discover_files(self, path) -> list:
+        files = []
+        if path.is_file():
+            if path.suffix.lower() in accepted_extensions:
+                files.append(path)
+                return files
+        elif path.is_dir():
+            paths = path.rglob("*")
+            for p in paths:
+                if p in accepted_extensions:
+                    files.append(p)
+
+            return files
+        else:
+            ErrorLogger().error("ScanManager::discover_files() : path is neither file nor direcotry")
+        return []
