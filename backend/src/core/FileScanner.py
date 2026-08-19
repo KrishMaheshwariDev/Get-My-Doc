@@ -7,4 +7,4 @@ class FileScanner:
         self.paths = paths
 
     def start_scanning(self):
-        
+        pass
