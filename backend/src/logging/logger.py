@@ -61,11 +61,12 @@ class Logger:
 
 class ErrorLogger:
     """Handles errors and exceptions using the active logging session."""
-
-    def error(self, message: str) -> None:
+    @classmethod
+    def error(cls, message: str) -> None:
         Logger._write("ERROR", message)
 
-    def exception(self, exception: BaseException) -> None:
+    @classmethod
+    def exception(cls, exception: Exception) -> None:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         with Logger._log_file.open("a", encoding="utf-8") as file:
