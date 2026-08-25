@@ -9,7 +9,7 @@ Version: 1.0 (Draft)
 # 1. Product Definition
 ### Working definition
 
-Get-My-Doc is a local-first personal retrieval assistant that accepts natural-language requests through text or voice and retrieves the user's requested documents or resources without requiring the user to know their filename or storage location.
+Get-My-Doc is a local-first personal retrieval assistant that accepts natural-language requests through text or voice and retrieves the user's requested documents or resources without requiring the user to know their filename or storage location. In future, it will serve as an extension of the OS file management system, enabling AI-driven file operations as part of an AI OS.
 
 The key phrase is retrieval assistant.
 
@@ -214,6 +214,10 @@ Conceptually:
 This will matter significantly when we reach HLD.
 
 ### **FR-10: Query History**
+
+### **FR-11: File System Watcher**
+
+The system shall monitor registered files and directories for changes using the OS's file system event listener. It will detect modifications, creations, deletions, and attribute changes, and update the index accordingly. Only files and directories that have been explicitly registered by the user will be watched to avoid unnecessary overhead.
 
 Potentially store previous queries:
 ```
